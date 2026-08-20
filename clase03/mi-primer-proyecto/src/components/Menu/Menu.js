@@ -1,18 +1,17 @@
 import React from "react";
 
-function Menu () {
+function Menu (props) {
     return(
-            <nav>
-        <ul class="main-nav">
-            <li>elemento menu</li>
-            <li>elemento menu</li>
-            <li>elemento menu</li>
-            <li>elemento menu</li>
-        </ul>
-        <ul class="user">
-            <li>Nombre usuario <img src="./img/user.jpg" alt=""/></li>
-        </ul>
-    </nav>
+    <nav>
+        <ul className="main-nav">
+                {props.menuItems.map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
+            <ul className="user">
+                <li>{props.usuario} <img src="./img/user.jpg" alt=""/></li>
+            </ul>
+        </nav>
     )
 }
 

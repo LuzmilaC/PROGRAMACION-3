@@ -115,7 +115,59 @@ footer {
     text-align: center;
     padding: 40px 0;
     color: #666;
-    position: absolute;
-    bottom: 0;
     width: 100%;
+}
+
+/* personajes */
+
+/* contenedor */
+.character-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 0 30px;
+    
+   
+}
+
+/* card */
+.character-card {
+    width: 22%;
+    min-width: 220px;
+    max-width: 400px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    overflow: hidden;      
+}
+
+.character-card img {
+    width: 100%;
+    aspect-ratio: 3 / 4;    
+    object-fit: cover;
+    display: block;
+}
+
+.character-card h4,
+.character-card p,
+.character-card a {
+    padding: 0 15px;
+}        
+
+.character-card h4 {
+    margin-top: 12px;
+}
+
+.character-card p {
+    color: #666;
+    font-size: 14px;
+}
+
+.character-card a {
+    display: block;
+    margin-bottom: 15px;
+    color: #4e73df;
 }

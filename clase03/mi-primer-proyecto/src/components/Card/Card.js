@@ -1,13 +1,10 @@
 import React from "react";
 
-function card () {
+function Card ({ category }) {
     return(
-        <div>
-            <article class="card">
-                <p>Category 1</p>
+            <article className="card">
+                <p>{category}</p>
             </article>
-        </div>
-            
     )
 }
-export default card
+export default Card;

@@ -1,23 +1,21 @@
 import Article from "../Article/Article";
 import Categories from "../Categories/Categories";
 
-function main () {
+function Main () {
     return(
         <div>
-            <section class="top-data"> 
-                <Article></Article>
-                <Article></Article>
-                <Article></Article>
+            <section className="top-data">
+                <Article titulo="Products In Database" datos="135"/>
+                <Article titulo="Amount In Products" datos="$645.634"/>
+                <Article titulo="User Quantity" datos="90"/>     
             </section>
             <h2>Categories in database</h2>
-                    <section class="general-data"> 
-                        <Categories></Categories>
+            
+            <Categories></Categories>
                         
-                    </section>
-
         </div>
             
     )
 }
 
-export default main
+export default Main
