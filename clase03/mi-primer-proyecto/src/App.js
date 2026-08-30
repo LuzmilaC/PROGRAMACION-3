@@ -1,6 +1,7 @@
 import Menu from "./components/Menu/Menu";
 import Main from "./components/Main/Main"
 import Personajes from "./components/Personajes/Personajes";
+import Contador from "./components/Contador/Contador";
 
 function App() {
  return (
@@ -17,6 +18,7 @@ function App() {
       <footer>
         <p>Copyright © Dashboard 2022</p>
     </footer>
+    <Contador/>
     </div>
     
  );

@@ -171,3 +171,7 @@ footer {
     margin-bottom: 15px;
     color: #4e73df;
 }
+
+.oculto {
+  display: none;
+}
