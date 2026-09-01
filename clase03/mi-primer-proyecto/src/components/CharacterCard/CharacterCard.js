@@ -32,7 +32,6 @@ class CharacterCard extends Component {
   }
 }
 
-
 export default CharacterCard;
 
  

@@ -1,27 +1,30 @@
-import Menu from "./components/Menu/Menu";
-import Main from "./components/Main/Main"
-import Personajes from "./components/Personajes/Personajes";
-import Contador from "./components/Contador/Contador";
 
-function App() {
- return (
-    <div>
-       <Menu menuItems={["ADMIN", "Pages", "Charts", "Tables"]} 
-    usuario="Walter White"
-      />
-       <h1>My App in React</h1>
-       <Main/>
-      
-      <h2>Personajes de películas</h2>
-      <Personajes/>
-      
-      <footer>
-        <p>Copyright © Dashboard 2022</p>
-    </footer>
-    <Contador/>
-    </div>
-    
- );
+import React from 'react';
+import { Route } from 'react-router-dom'
+import { Switch } from 'react-router-dom'
+import Home from "./screens/Home/Home";
+import AboutUs from "./screens/AboutUs/AboutUs";
+import NotFound from "./screens/NotFound/NotFound";
+import Personajes from "./screens/Personajes/Personajes";
+import UnPersonaje from "./screens/UnPersonaje/UnPersonaje";
+
+function App () {
+   root.render(
+ <BrowserRouter>
+   <App />
+ </BrowserRouter>
+);
+
+
+   <Switch>
+<Route path="/" exact={true} component={Home}/>
+<Route path="/aboutUs" component={aboutUs}/>
+<Route path="/Personajes" component={Personajes}/>
+<Route path="/UnPersonaje/id/:id" component={UnPersonaje} />
+<Route path="*" component={NotFound}/>
+</Switch>
+   
 }
+
 
 export default App;
