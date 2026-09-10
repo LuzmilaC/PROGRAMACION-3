@@ -1,15 +1,18 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-
 function Menu (props) {
     return(
-    <nav>
-        <ul className="main-nav">
+        <nav>
+            <ul className="main-nav">
                 {props.menuItems.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    // Accedemos a la propiedad del objeto (ejemplo: item.label o item.nombre)
+                    <li key={index}>
+                        <Link to={item.path}>{item.label}</Link>
+                    </li>
                 ))}
             </ul>
+
             <ul className="user">
                 <li>{props.usuario} <img src="./img/user.jpg" alt=""/></li>
             </ul>
@@ -18,14 +21,11 @@ function Menu (props) {
                 <li> <Link to="/" >Home</Link> </li>
                 <li> <Link to="/AboutUs" >AboutUs</Link> </li>
                 <li> <Link to="/Personajes" >Personajes</Link> </li>
-                <li> <Link to="/UnPersonaje/id/:id" >UnPersonaje</Link> </li>
-                <li> <Link to="/UnPersonaje/id/:id" >UnPersonaje</Link> </li>
                 <li> <Link to="*" >NotFound</Link> </li>
-     
+                <li><Link to="/favoritos">Favoritos</Link></li>
             </ul>
-    
         </nav>
-    )
+    );
 }
 
-export default Menu
+export default Menu;

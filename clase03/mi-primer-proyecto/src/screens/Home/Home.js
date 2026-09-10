@@ -4,6 +4,7 @@ import Main from "../../components/Main/Main";
 import Personajes from "../../components/Personajes/Personajes";
 import Contador from "../../components/Contador/Contador";
 import SeccionRM from "../../components/SeccionRM/SeccionRM";
+import Formulario from "../../components/Formulario/Formulario"; // 👈 nuevo import
 
 
 function Home () {
@@ -20,6 +21,8 @@ function Home () {
        
        <h1>My App in React</h1>
        <Main/>
+
+       <Formulario/>  {/* 👈 acá lo metí, arriba de todo, como buscador principal */}
       
       <h2>Personajes de películas</h2>
       <Personajes/>
@@ -39,4 +42,3 @@ function Home () {
 }
 
 export default Home
-

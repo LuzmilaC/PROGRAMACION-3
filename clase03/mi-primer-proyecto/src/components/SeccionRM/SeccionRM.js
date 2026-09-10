@@ -6,56 +6,84 @@ class SeccionRM extends Component {
     super(props);
     this.state = {
       personajes: [],
+      personajesFiltrados: [],
+      busqueda: '',
       siguientePagina: 'https://rickandmortyapi.com/api/character'
-      // acá guardamos la URL de la "próxima página" que nos da la API
     };
   }
 
-  // Se ejecuta apenas se renderiza el componente por primera vez
   componentDidMount() {
     this.pedirPersonajes();
   }
 
-  pedirPersonajes = () => {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.busqueda !== this.state.busqueda) {
+      this.filtrarPersonajes(this.state.busqueda);
+    }
+  }
+
+  pedirPersonajes() {
     fetch(this.state.siguientePagina)
       .then(response => response.json())
       .then(data => {
+        let nuevosPersonajes = this.state.personajes.concat(data.results);
         this.setState({
-          // concat junta el array viejo con el array nuevo de resultados
-          personajes: this.state.personajes.concat(data.results),
-          siguientePagina: data.info.next // la API te da el link de la próxima página
+          personajes: nuevosPersonajes,
+          personajesFiltrados: nuevosPersonajes,
+          siguientePagina: data.info.next
         });
       })
       .catch(error => console.log('El error fue: ' + error));
-  };
+  }
 
-  // Método para borrar: nos quedamos con todos MENOS el que tiene ese id
-  borrarPersonaje = (id) => {
+  borrarPersonaje(id) {
     this.setState({
-      personajes: this.state.personajes.filter(personaje => personaje.id !== id)
+      personajes: this.state.personajes.filter(personaje => personaje.id !== id),
+      personajesFiltrados: this.state.personajesFiltrados.filter(personaje => personaje.id !== id)
     });
-  };
+  }
+
+  filtrarPersonajes(textoAFiltrar) {
+    let resultado = this.state.personajes.filter(function (personaje) {
+      return personaje.name.toLowerCase().includes(textoAFiltrar.toLowerCase());
+    });
+    this.setState({ personajesFiltrados: resultado });
+  }
+
+  evitarSubmit(event) {
+    event.preventDefault();
+  }
+
+  controlarCambios(event) {
+    this.setState({ busqueda: event.target.value });
+  }
 
   render() {
     return (
       <div>
-        <section className='cardContainer'>
-          {this.state.personajes.length === 0 ? (
+        <form onSubmit={(event) => this.evitarSubmit(event)}>
+          <input
+            type="text"
+            onChange={(event) => this.controlarCambios(event)}
+            value={this.state.busqueda}
+          />
+        </form>
+
+        <section className='character-list'>
+          {this.state.personajesFiltrados.length === 0 ? (
             <p>Cargando...</p>
           ) : (
-            this.state.personajes.map(personaje => (
+            this.state.personajesFiltrados.map(personaje => (
               <RMcard
                 key={personaje.id}
                 personaje={personaje}
-                onBorrar={this.borrarPersonaje}
+                onBorrar={(id) => this.borrarPersonaje(id)}
               />
             ))
           )}
         </section>
 
-        {this.state.siguientePagina && (
-          <button onClick={this.pedirPersonajes}>Más personajes</button>
-        )}
+        <button onClick={() => this.pedirPersonajes()}>Más personajes</button>
       </div>
     );
   }
