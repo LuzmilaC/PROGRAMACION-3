@@ -7,6 +7,8 @@ import Personajes from "./screens/Personajes/Personajes";
 import UnPersonaje from "./screens/UnPersonaje/UnPersonaje";
 import SearchResults from './components/SearchResults/SearchResults';
 import Favoritos from "./screens/Favoritos/Favoritos"
+import Login from "./screens/Login/Login";
+import Register from "./screens/Register/Register";
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
       <Route path="/unPersonaje/:id" component={UnPersonaje} />
       <Route path="/searchResults/:texto" component={SearchResults} />
       <Route path="/favoritos" component={Favoritos} />
-      <Route path="*" component={NotFound} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="*" component={NotFound} />  
 
     </Switch>
   );
