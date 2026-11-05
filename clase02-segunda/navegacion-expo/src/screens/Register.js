@@ -1,16 +1,27 @@
 import { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
+import { auth } from '../firebase/config';
 
 function Register(props) {
   const [email, setEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [register, setRegister] = useState(false); //estado del registro que usa el .then
+  const [registerError, setRegisterError] = useState(''); // estado del registro que usa el .catch
 
-  function onSubmit() {
-    console.log('Email: ' + email);
-    console.log('UserName: ' + userName);
-    console.log('Password: ' + password);
+  //funcion para registrar al usuario
+  function onSubmit(email, pass) {
+    auth.createUserWithEmailAndPassword(email, pass)
+
+    .then( response => {
+        setRegister(true);
+        props.navigation.navigate('Login'); //redirige a Login si se registró bien
+     })
+    .catch( error => {
+        setRegisterError('Fallo en el registro.')
+    })
   }
+
 
   return (
     <View style={styles.container}>
@@ -39,9 +50,13 @@ function Register(props) {
         onChangeText={ text => setPassword(text) }
         value={password} />
 
-      <Pressable onPress={() => onSubmit()} style={styles.boton}>
+      {/*onSubmit recibe los valores email y pass y Se los pasa a auth.createUserWithEmailAndPassword(email, pass), que registra al usuario en Firebase.*/}
+      <Pressable onPress={() => onSubmit(email, password)} style={styles.boton}>
         <Text style={styles.textoBoton}> registrarme </Text>
       </Pressable>
+
+      {/* muestra el error de registro (ternario, como en clase) */}
+      {registerError !== '' ? <Text>{registerError}</Text> : null}
 
       {/* control en tiempo real */}
       <View>
@@ -53,7 +68,7 @@ function Register(props) {
   );
 }
 
-//estilos
+//estilos (sin cambios)
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,

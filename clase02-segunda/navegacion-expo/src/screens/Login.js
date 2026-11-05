@@ -1,13 +1,33 @@
 import { useState } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput } from 'react-native';
+import { auth } from '../firebase/config';
 
 function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [login, setLogin] = useState(false); //estado del login que usa el .then
+  const [loginError, setLoginError] = useState(''); // estado del login que usa el .then
 
-  function onSubmit() {
-    console.log('Email: ' + email);
-    console.log('Password: ' + password);
+  //funcion para logear al usuario
+  function onSubmit(email, pass) {
+    // validaciones antes de consultar a Firebase
+    if (!email.includes('@')) {
+      setLoginError('Email mal formateado');
+      return;
+    }
+    if (pass.length < 6) {
+      setLoginError('La password debe tener una longitud mínima de 6 caracteres');
+      return;
+    }
+
+    auth.signInWithEmailAndPassword(email, pass)
+    .then((response) => {
+        setLogin(true);
+        props.navigation.navigate('HomeMenu'); // redirige a Home si el login es correcto
+    })
+    .catch(error => {
+        setLoginError('Credenciales incorrectas'); // texto que pide la consigna
+    })
   }
 
   return (
@@ -37,20 +57,18 @@ function Login(props) {
         onChangeText={ text => setPassword(text) }
         value={password} />
 
-      <Pressable onPress={() => onSubmit()} style={styles.boton}>
+      {/*onSubmit recibe los valores email y pass y Se los pasa a auth.createUserWithEmailAndPassword(email, pass), que registra al usuario en Firebase.*/}
+      <Pressable onPress={() => onSubmit(email, password)} style={styles.boton}>
         <Text style={styles.textoBoton}> Login </Text>
       </Pressable>
 
-      {/* control en tiempo real */}
-      <View>
-        <Text>Email: {email}</Text>
-        <Text>Password: {password}</Text>
-      </View>
+      {/* muestra el error de login */}
+      {loginError !== '' ? <Text>{loginError}</Text> : null}
     </View>
-  );
-}
+  )
+};
 
-//estilos
+//estilos 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 10,
