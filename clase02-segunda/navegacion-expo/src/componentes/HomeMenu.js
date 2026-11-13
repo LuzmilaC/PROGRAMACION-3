@@ -1,8 +1,7 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Entypo from '@expo/vector-icons/Entypo';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
+import Usuarios from '../screens/usuarios';
+import NuevoPost from '../screens/nuevoPost';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,12 +14,15 @@ function HomeMenu() {
           tabBarIcon: () => <Entypo name="home" size={24} color="black" />
         }}
       />
-      <Tab.Screen  name="Profile"  component={Profile}
+      <Tab.Screen name="Profile" component={Profile}
         options={{
           headerShown: false,
           tabBarIcon: () => <AntDesign name="profile" size={24} color="black" />
         }}
       />
+
+      <Tab.Screen name="Usuarios" component={Usuarios} />
+      <Tab.Screen name="Nuevo post" component={NuevoPost} />
     </Tab.Navigator>
   );
 }

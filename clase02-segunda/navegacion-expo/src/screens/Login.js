@@ -44,7 +44,7 @@ function Login(props) {
       </Pressable>
 
       {/* formulario */}
-      <TextInput style={styles.field}
+      <TextInput style={styles.field} 
         keyboardType='email-address'
         placeholder='email'
         onChangeText={ text => setEmail(text) }
